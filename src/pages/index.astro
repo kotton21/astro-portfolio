@@ -93,6 +93,18 @@ const heroMedia = [
 				</div>
 			</section> -->
 
+			<div class="story-intro-container">
+				<em class="story-intro-text">
+					Creative technologist and maker, exploring what systems emerge when I mix my art and technology with human problems
+				</em>
+			</div>
+			  
+			  {/* <div style={{ padding: '2rem' }}>
+				<span style={{ fontSize: '0.8rem' }}>
+				  <strong>Note on em dashes:</strong> I like em dashes. I'm aware that ChatGPT also likes them. Rest assured, all of the content in this portfolio was manually written by me. The website code, however, I vibed with Cursor.
+				</span>
+				</div> */}
+
 			<!-- Example MDX Content -->
 			<section class="project-description">
 				<Story />
@@ -126,7 +138,7 @@ const heroMedia = [
 				--accent-color: #3b82f6;
 				--grid-gap: 1rem;
 				--card-min-width: 300px;
-				--section-spacing: 4rem;
+				--section-spacing: 5rem;
 			}
 			
 			* {
@@ -260,6 +272,17 @@ const heroMedia = [
 				padding: 0 0;
 				/* border-top: 1px solid #333; */
 			}
+
+			.story-intro-container {
+				text-align: center;
+				padding: 0 2.5rem 2rem 2.5rem;
+			}
+
+			.story-intro-text {
+				font-size: 2.4rem;
+				display: inline-block;
+				line-height: 1.5;
+			}
 			
 			@media (max-width: 768px) {
 				.hero-canvas {
@@ -288,6 +311,14 @@ const heroMedia = [
 
 				.featured-grid {
 					gap: 1.5rem;
+				}
+
+				.story-intro-text {
+					font-size: 1.5rem;
+				}
+
+				.story-intro-container {
+					padding: 0 1rem 2rem 1rem;
 				}
 			}
 		</style>
