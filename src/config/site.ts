@@ -26,7 +26,7 @@ export const siteConfig = {
     { name: "All Projects", href: "/projects" },
     // { name: "About Me", href: "/projects/aboutme" },
     { 
-      name: "Resume", 
+      name: "Résumé", 
       href: "https://drive.google.com/file/d/1d0ciR6b7yTiw-lbge2PGQsCI4UflKEI9/view?usp=drive_link", 
       external: true, 
       target: "_blank" 
