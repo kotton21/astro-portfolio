@@ -1,0 +1,125 @@
+---
+import { MEDIA_BASE_URL } from '../config/media';
+
+export interface Props {
+  className?: string;
+  imageSrc: string;
+  imageAlt: string;
+}
+
+const { className = "", imageSrc, imageAlt } = Astro.props;
+
+// Helper function to get the full media URL
+function getMediaUrl(src: string): string {
+  // If src already starts with http or is a full URL, return as-is
+  if (src.startsWith('http') || src.startsWith('//')) {
+    return src;
+  }
+  // If src starts with /astro-portfolio/assets, replace with MEDIA_BASE_URL
+  if (src.startsWith('/astro-portfolio/assets')) {
+    return src.replace('/astro-portfolio/assets', MEDIA_BASE_URL);
+  }
+  // Otherwise, prepend MEDIA_BASE_URL
+  return `${MEDIA_BASE_URL}${src.startsWith('/') ? '' : '/'}${src}`;
+}
+
+const imageUrl = getMediaUrl(imageSrc);
+---
+
+<div class={`text-image-layout ${className}`}>
+  <div class="text-content-wrapper">
+    <div class="text-primary">
+      <slot name="text-primary" />
+    </div>
+    <div class="text-secondary">
+      <slot name="text-secondary" />
+    </div>
+  </div>
+  <div class="image-wrapper">
+    <img src={imageUrl} alt={imageAlt} />
+  </div>
+</div>
+
+<style>
+  .text-image-layout {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    margin: 1rem auto;
+    max-width: 800px;
+    background: #232323;
+    border-radius: 1.2rem;
+    overflow: hidden;
+  }
+
+  .text-content-wrapper {
+    flex: 1 1 400px;
+    min-width: 250px;
+    display: flex;
+    margin: 1rem 2rem;
+    flex-direction: column;
+    justify-content: center;
+    gap: 1rem;
+  }
+
+  .text-primary {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    color: #e5e5e5;
+  }
+
+  .text-primary p {
+    margin: 0;
+  }
+
+  .text-secondary {
+    font-size: 0.95rem;
+    line-height: 1.5;
+    color: #cccccc;
+  }
+
+  .text-secondary p {
+    margin: 0;
+    margin-left: 1rem;
+  }
+
+  .image-wrapper {
+    flex: 1 1 30px;
+    min-width: 150px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+  }
+
+  .image-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  @media (max-width: 768px) {
+    .text-image-layout {
+      gap: 1rem;
+      margin: 1rem 1rem;
+    }
+
+    .text-content-wrapper {
+      margin: auto 1.5rem;
+      padding-top: 1rem;
+    }
+
+    .image-wrapper {
+      min-width: 100%;
+    }
+
+    .text-primary {
+      font-size: 1rem;
+    }
+
+    .text-secondary {
+      font-size: 0.9rem;
+    }
+  }
+</style>
+

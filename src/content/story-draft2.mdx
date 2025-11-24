@@ -7,6 +7,7 @@ import CenteredImage from '../components/CenteredImage.astro';
 import TextBlock from '../components/TextBlock.astro';
 import ProjectCard from '../components/ProjectCard.astro';
 import Gallery from '../components/Gallery.astro';
+import TextImageLayout from '../components/TextImageLayout2.astro';
 
 {/*
 What are the 3 things I really want people to know about me?
@@ -18,53 +19,47 @@ What are the 3 things I really want people to know about me?
 
 <div style={{ textAlign: 'center', padding: '0 2.5rem' }}>
   <em style={{ fontSize: '2.4rem', display: 'inline-block', lineHeight: '1.5' }}>
-    My passion--my vocation--is to build systems that combine creativity and technology
+    I am passion about building systems that combine my creativity and technology
   </em>
   {/* <em style={{ fontSize: '1.5rem', display: 'inline-block', lineHeight: '1.5' }}>
     In a world of brutally functional technology, nothing hits the spot like the clever symmetry of artistic creativity with thoughtful science in the creation of a thing.
   </em> */}
-  <div style={{ padding: '2rem' }}>
+  {/* <div style={{ padding: '2rem' }}>
     <span style={{ fontSize: '0.8rem' }}>
       <strong>Note on em dashes:</strong> I like em dashes. I'm aware that ChatGPT also likes them. Rest assured, all of the content in this portfolio was manually written by me. The website code, however, I vibed with Cursor.
     </span>
+</div> */}
 </div>
-</div>
 
 
-------------------------------------------------------------------------------------------------
+--------------------------------------------------
 
-In a world of brutally functional technology, nothing hits the spot like the clever symmetry of art and science in the creation of a thing.  Most of my personal work stems from this idea; striving to merge artistic creativity with thoughtful science.  Design for function, and only function, is leaves me unsatisfied. But so does design for form (aka, visual art, or lazy product design)!  The elegance of a design, for me, comes from the artful integration of a design's functionality, creation, or tech into its aesthetic. Allow me to demonstrate an example: 
+In a world of brutally functional technology, nothing hits the spot like the clever symmetry of art and science in the creation of a thing.  Most of my personal work stems from this idea; striving to merge artistic creativity with thoughtful science.  
 
-<div style={{ display: 'flex', flexWrap: 'wrap', gap: '2rem', alignItems: 'center', margin: '2rem 0', padding: '0 2rem'}}>
-  <div style={{ flex: '1 1 500px', minWidth: '250px' }}>
+<TextImageLayout
+  align="center"
+  imageSrc="/astro-portfolio/assets/projects/3Dprintedpottery/rv07 and rv04.jpg"
+  imageAlt="Random Vase #07 and Random Vase #04: Leaving these unglazed catches the ambient light so nicely"
+>
+  <div slot="text-primary">
     <p>
-      My work with 3D Printed Pottery is my best example of artistic synergy with technology.  I make no attempt to hide the fact that this work is 3d printed, and instead I seek to make that a key part of the design. Most people would quickly recognize this work as "3d printed using the characteristic "layer lines" that typically accompany 3d printed objects.   
+      My work with 3D Printed Pottery is my cleanest example of artistic synergy with technology. 
     </p>
+  </div>
+  <div slot="text-secondary">
     <p>
       Check out the [3D Pottery Project Page](/projects/3dpottery) for more details and some process videos!
     </p>
   </div>
-  <div style={{ flex: '1 1 30px', minWidth: '150px', display: 'flex', justifyContent: 'center' }}>
-    <CenteredImage 
-      src="/astro-portfolio/assets/projects/3Dprintedpottery/rv07 and rv04.jpg"
-      alt="Random Vase #07 and Random Vase #04: Leaving these unglazed catches the ambient light so nicely"
-    />
-  </div>
-</div>
+</TextImageLayout>
 
 Before 3D Printed Ceramics, [Laser Pottery](/projects/laser_pottery) was my first attempt at this concept.  In fact, most of my ceramics projects (beyond [handbuilding](/projects/20yearsofpottery)), seek to infuse the tech, and the tech production process, into the art.  
-
-
-#
-Naturally go into some other projects here..
-
-Then I did a sofware thing with the i
 
 
 {/* ## Favorite Projects: 
 Or check out all my projects [here](/projects)! */}
 {/* Continued in index.astro!!! */}
-
+See more below!
 
 
 

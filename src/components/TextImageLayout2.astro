@@ -1,0 +1,145 @@
+---
+import { MEDIA_BASE_URL } from '../config/media';
+
+export interface Props {
+  className?: string;
+  imageSrc: string;
+  imageAlt: string;
+  align?: 'left' | 'center' | 'right';
+}
+
+const { className = "", imageSrc, imageAlt, align = 'center' } = Astro.props;
+
+// Helper function to get the full media URL
+function getMediaUrl(src: string): string {
+  // If src already starts with http or is a full URL, return as-is
+  if (src.startsWith('http') || src.startsWith('//')) {
+    return src;
+  }
+  // If src starts with /astro-portfolio/assets, replace with MEDIA_BASE_URL
+  if (src.startsWith('/astro-portfolio/assets')) {
+    return src.replace('/astro-portfolio/assets', MEDIA_BASE_URL);
+  }
+  // Otherwise, prepend MEDIA_BASE_URL
+  return `${MEDIA_BASE_URL}${src.startsWith('/') ? '' : '/'}${src}`;
+}
+
+const imageUrl = getMediaUrl(imageSrc);
+
+// Determine margin based on alignment
+const alignmentMargin = align === 'left' ? '0' : align === 'right' ? '0 0 0 auto' : '0 auto';
+---
+
+<div class={`text-image-layout-2 ${className} align-${align}`}>
+  <div class="text-content-wrapper">
+    <div class="text-primary">
+      <slot name="text-primary" />
+    </div>
+    <div class="text-secondary">
+      <slot name="text-secondary" />
+    </div>
+  </div>
+  <div class="image-wrapper">
+    <img src={imageUrl} alt={imageAlt} />
+  </div>
+</div>
+
+<style>
+  .text-image-layout-2 {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    margin: 2rem auto;
+    max-width: 800px;
+    border: 1px solid #444;
+    /* border-top: 1px solid #444;
+    border-bottom: 1px solid #444; */
+    overflow: hidden;
+  }
+
+  .text-image-layout-2.align-left {
+    margin-left: 0;
+    margin-right: auto;
+  }
+
+  .text-image-layout-2.align-center {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .text-image-layout-2.align-right {
+    margin-left: auto;
+    margin-right: 0;
+  }
+
+  .text-content-wrapper {
+    flex: 1 1 400px;
+    min-width: 250px;
+    display: flex;
+    margin: 1rem 2rem;
+    flex-direction: column;
+    justify-content: center;
+    gap: 1rem;
+  }
+
+  .text-primary {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    color: #e5e5e5;
+  }
+
+  .text-primary p {
+    margin: 0;
+  }
+
+  .text-secondary {
+    font-size: 0.95rem;
+    line-height: 1.5;
+    color: #cccccc;
+  }
+
+  .text-secondary p {
+    margin: 0;
+    margin-left: 1rem;
+  }
+
+  .image-wrapper {
+    flex: 1 1 30px;
+    min-width: 150px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+  }
+
+  .image-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  @media (max-width: 768px) {
+    .text-image-layout-2 {
+      gap: 1rem;
+      margin: 1rem 1rem;
+    }
+
+    .text-content-wrapper {
+      margin: auto 1.5rem;
+      padding-top: 1rem;
+    }
+
+    .image-wrapper {
+      min-width: 100%;
+    }
+
+    .text-primary {
+      font-size: 1rem;
+    }
+
+    .text-secondary {
+      font-size: 0.9rem;
+    }
+  }
+</style>
+
