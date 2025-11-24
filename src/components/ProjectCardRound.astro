@@ -1,0 +1,158 @@
+---
+import { MEDIA_BASE_URL } from '../config/media';
+
+export interface Props {
+  project: any; // Type will be inferred from content collection
+  featured?: boolean; // Whether this is a featured project
+}
+
+const { project, featured = false } = Astro.props;
+const { slug, data } = project;
+
+// Helper function to get the full media URL
+function getMediaUrl(src: string): string {
+  // If src already starts with http or is a full URL, return as-is
+  if (src.startsWith('http') || src.startsWith('//')) {
+    return src;
+  }
+  // If src starts with /astro-portfolio/assets, replace with MEDIA_BASE_URL
+  if (src.startsWith('/astro-portfolio/assets')) {
+    return src.replace('/astro-portfolio/assets', MEDIA_BASE_URL);
+  }
+  // Otherwise, prepend MEDIA_BASE_URL
+  return `${MEDIA_BASE_URL}${src.startsWith('/') ? '' : '/'}${src}`;
+}
+
+// Determine thumbnail source
+const rawThumbnailSrc = data.thumbnail || (data.media && data.media[0]?.src) || 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAwIiBoZWlnaHQ9IjMwMCIgdmlld0JveD0iMCAwIDQwMCAzMDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSI0MDAiIGhlaWdodD0iMzAwIiBmaWxsPSIjMzMzMzMzIi8+Cjx0ZXh0IHg9IjIwMCIgeT0iMTUwIiBmb250LWZhbWlseT0iQXJpYWwiIGZvbnQtc2l6ZT0iMTgiIGZpbGw9IiM2NjY2NjYiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGR5PSIuM2VtIj5ObyBJbWFnZTwvdGV4dD4KPC9zdmc+';
+const thumbnailSrc = rawThumbnailSrc.startsWith('data:') ? rawThumbnailSrc : getMediaUrl(rawThumbnailSrc);
+const thumbnailAlt = data.media?.[0]?.alt || data.title;
+---
+
+<a href={`/projects/${slug}`} class={`project-card ${featured ? 'featured' : ''}`}>
+  <div class="card-image">
+    <img src={thumbnailSrc} alt={thumbnailAlt} />
+    {data.status === 'wip' && <span class="status-badge wip">WIP</span>}
+    {data.status === 'draft' && <span class="status-badge draft">Draft</span>}
+    {data.featured && <span class="featured-badge">Featured</span>}
+  </div>
+  
+  <div class="card-content">
+    <h3>{data.title}</h3>
+    {data.blurb && <p class="blurb">{data.blurb}</p>}
+    {data.date && <span class="date">{data.date}</span>}
+  </div>
+</a>
+
+<style>
+  .project-card {
+    display: block;
+    background: #3a3a3a;
+    border-radius: 1.2rem;
+    overflow: hidden;
+    text-decoration: none;
+    color: inherit;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  
+  .project-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+  }
+  
+  .card-image {
+    position: relative;
+    aspect-ratio: 4/3;
+    overflow: hidden;
+  }
+  
+  .card-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s;
+  }
+  
+  .project-card:hover .card-image img {
+    transform: scale(1.05);
+  }
+  
+  .status-badge {
+    position: absolute;
+    top: 0.9rem;
+    right: 0.9rem;
+    padding: 0.25rem 0.5rem;
+    border-radius: 0.25rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+  }
+  
+  .status-badge.wip {
+    background: #f59e0b;
+    color: #000;
+  }
+  
+  .status-badge.draft {
+    background: #6b7280;
+    color: #fff;
+  }
+  
+  .featured-badge {
+    position: absolute;
+    top: .9rem;
+    left: .9rem;
+    padding: 0.25rem 0.5rem;
+    border-radius: 0.25rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    background: var(--accent-color, #3b82f6);
+    color: white;
+  }
+  
+  .card-content {
+    padding: 0.5rem 1rem 1rem 1rem;
+    background: #2f2f2f;
+  }
+  
+  h3 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-top: 0;
+    margin-bottom: 0.25rem;
+    color: #ffffff;
+  }
+  
+  .blurb {
+    color: #cccccc;
+    font-size: 0.9rem;
+    line-height: 1.4;
+    margin-bottom: 0.5rem;
+  }
+  
+  .date {
+    color: #888;
+    font-size: 0.8rem;
+  }
+  
+  /* Featured projects get larger cards */
+  .project-card.featured {
+    background: #3a3a3a;
+  }
+  
+  .project-card.featured .card-content h3 {
+    color: var(--accent-color, #3b82f6);
+    font-size: 1.5rem;
+  }
+  
+  .project-card.featured .card-content .blurb {
+    font-size: 1rem;
+    color: #e5e5e5;
+  }
+  
+  @media (max-width: 768px) {
+    .project-card.featured .card-content h3 {
+      font-size: 1.25rem;
+    }
+  }
+</style>
