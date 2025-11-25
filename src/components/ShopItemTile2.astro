@@ -1,0 +1,212 @@
+---
+export interface Props {
+  item: {
+    id: string;
+    filename: string;
+    imageUrl: string;
+    title: string;
+    price: string;
+    status?: 'sold' | 'inquire' | 'not-priced';
+    pairPrice?: string;
+  };
+}
+
+const { item } = Astro.props;
+const isSold = item.status === 'sold';
+const isInquire = item.status === 'inquire';
+const isNotPriced = item.status === 'not-priced';
+---
+
+<div class={`shop-item-tile ${isSold ? 'sold' : ''} ${isInquire ? 'inquire' : ''} ${isNotPriced ? 'not-priced' : ''}`}>
+  <div class="shop-item-image">
+    <img src={item.imageUrl} alt={item.title} loading="lazy" />
+    {isSold && <div class="sold-overlay">Sold</div>}
+    <div class="charcoal-overlay-top"></div>
+    <div class="charcoal-overlay-bottom"></div>
+    <div class="shop-item-title-container">
+      <h3 class="shop-item-title">{item.title}</h3>
+    </div>
+    <div class="shop-item-pricing-container">
+      <div class="shop-item-pricing">
+        <p class={`shop-item-price ${isSold ? 'sold' : ''} ${isInquire ? 'inquire' : ''} ${isNotPriced ? 'not-priced' : ''}`}>
+          {item.price}
+        </p>
+        {item.pairPrice && !isSold && (
+          <p class="shop-item-pair-price">Pair: {item.pairPrice}</p>
+        )}
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .shop-item-tile {
+    background: #303030;
+    border-radius: 1.2rem;
+    overflow: hidden;
+    transition: transform 0.2s, box-shadow 0.2s;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .shop-item-tile:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+  }
+  
+  .shop-item-image {
+    position: relative;
+    aspect-ratio: 3/4;
+    overflow: hidden;
+    background: #1a1a1a;
+  }
+  
+  .shop-item-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transform: scale(1.2);
+    transition: transform 0.3s;
+  }
+  
+  .shop-item-tile.sold .shop-item-image img {
+    opacity: 0.5;
+    filter: grayscale(100%);
+  }
+  
+  .shop-item-tile:hover .shop-item-image img {
+    transform: scale(1.25);
+  }
+  
+  .shop-item-tile.sold:hover .shop-item-image img {
+    transform: none;
+  }
+  
+  .charcoal-overlay-top {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 40%;
+    background: linear-gradient(to bottom, rgba(60, 60, 60, 0.7) 0%, rgba(60, 60, 60, 0.3) 20%, transparent 30%, transparent 100%);
+    pointer-events: none;
+    z-index: 1;
+  }
+  
+  .charcoal-overlay-bottom {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 40%;
+    background: linear-gradient(to top, rgba(60, 60, 60, 0.7) 0%, rgba(60, 60, 60, 0.3) 20%, transparent 30%, transparent 100%);
+    pointer-events: none;
+    z-index: 1;
+  }
+  
+  .sold-overlay {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(0, 0, 0, 0.8);
+    color: #ffffff;
+    padding: 0.5rem 1.5rem;
+    border-radius: 0.5rem;
+    font-weight: 700;
+    font-size: 1.2rem;
+    z-index: 10;
+    border: 2px solid #ffffff;
+  }
+  
+  .shop-item-title-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding: 0.75rem;
+    padding-left: 1rem;
+    z-index: 2;
+    text-align: left;
+  }
+  
+  .shop-item-pricing-container {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    padding: 0.3rem;
+    padding-left: 1rem;
+    z-index: 2;
+    text-align: left;
+  }
+  
+  .shop-item-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin: 0;
+    color: #ffffff;
+    line-height: 1.3;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+  }
+  
+  .shop-item-pricing {
+    display: flex;
+    flex-direction: row;
+    align-items: baseline;
+    gap: 0.6rem;
+    justify-content: flex-start;
+  }
+  
+  .shop-item-price {
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin: 0;
+    color: #6ea6ff;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+  }
+  
+  .shop-item-price.sold {
+    color: #888;
+    text-decoration: line-through;
+  }
+  
+  .shop-item-price.inquire {
+    color: #f59e0b;
+  }
+  
+  .shop-item-price.not-priced {
+    color: #cccccc;
+    font-size: 1rem;
+    font-weight: 500;
+  }
+  
+  .shop-item-pair-price {
+    font-size: 0.9rem;
+    color: #dddddd;
+    margin: 0;
+    font-style: italic;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+  }
+  
+  @media (max-width: 768px) {
+    .shop-item-title-container {
+      padding: 0.5rem;
+    }
+    
+    .shop-item-pricing-container {
+      padding: 0.5rem;
+    }
+    
+    .shop-item-title {
+      font-size: 0.85rem;
+    }
+    
+    .shop-item-price {
+      font-size: 0.95rem;
+    }
+    
+    .shop-item-pair-price {
+      font-size: 0.75rem;
+    }
+  }
+</style>
+

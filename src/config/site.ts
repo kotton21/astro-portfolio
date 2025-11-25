@@ -31,7 +31,8 @@ export const siteConfig = {
       external: true, 
       target: "_blank" 
     },
-    { name: "Contact", href: "/#contact" }
+    { name: "Contact", href: "/#contact" },
+    { name: "Shop", href: "/shop" }
   ]
 };
 
