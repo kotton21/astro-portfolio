@@ -27,7 +27,7 @@ export const siteConfig = {
     // { name: "About Me", href: "/projects/aboutme" },
     { 
       name: "Résumé", 
-      href: "https://drive.google.com/file/d/1d0ciR6b7yTiw-lbge2PGQsCI4UflKEI9/view?usp=drive_link", 
+      href: "https://drive.google.com/file/d/1ZKD4OtuKCMaEFdszsu5QuwJvjI9pLCQQ/view?usp=drive_link", 
       external: true, 
       target: "_blank" 
     },
