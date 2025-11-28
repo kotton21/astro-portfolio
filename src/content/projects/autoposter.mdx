@@ -15,6 +15,8 @@ The project result is shown at [@autopot.ter](https://www.instagram.com/autopot.
 
 {/* https://dash.elfsight.com/apps/instagram-feed */}
 import InstagramFeed from '../../components/InstagramFeed.astro';
+import CenteredImage from '../../components/CenteredImage.astro';
+import { siteConfig } from '../../config/site';
 
 <div style={{ display: 'flex', justifyContent: 'center' }}>
   <InstagramFeed widgetId="6bd7dd25-1e56-4a93-82f7-ab88bea62769" />
@@ -31,24 +33,64 @@ The system has two primary components:
 
 The system automatically generates content from a catalog of existing images and videos of my art, then it manages instagram posts and comments from its personality.
 
+## System Flow Diagram:
+<CenteredImage 
+  src="/astro-portfolio/assets/projects/autoposter/Screenshot_autoposter_flow.png" 
+  alt="Autoposter System FlowDiagram" 
+  lightboxId="autoposter-system-diagram" 
+/>
 
-## Available Resources:
 The system has access to the following resources to use in content generation:
-- Instagram account insights (new followers, post history, statistics)
 - Media Library: 
     - A collection of timelapse videos captured by the 3d printer
     - Images and videos of Completed Works
     - Build videos of the 3d printer being constructed
-- A description of the media library and how to use it
+- System Instructions: 
+    - Description of the media library's contents and filenames
+    - JSON2Video Documentation and examples
+- Instagram insights (new followers, post history, statistics)
 - A Personality/History document of the 3d printer's "personality"
-- Post Request
+
 
 ## Basic flow:
-1. Request list of media files from the media library
-2. Request most recent instagram insights
+1. Request most recent instagram insights
+2. Request list of media files from the media library
 3. Upload all resources to a GPT model
 4. Request a "social media post" from the gpt model based on the resources, and the personality document
 5. Parse the response, and upload the response to the json2video api
 6. Download the video from the json2video api
 7. Upload the video and it's caption to instagram
 
+
+## Results:
+The system is live and posting to the [https://www.instagram.com/autopot.ter/](https://www.instagram.com/autopot.ter/) instagram account. The AI naturally figured out that, for some reason, viewers prefer videos of failed prints over successfull completions.  It started posting exclusively failures for a while until I curtailed the behavior. That said, it is posting slightly more interesting content, but still struggles with in-vidoe label placement, and the personality isn't well developed.  
+
+<a 
+  href={siteConfig.contact.github} 
+  class="contact-link github" 
+  target="_blank"
+  style={{
+    display: 'inline-flex',
+    alignItems: 'center',
+    gap: '0.5rem',
+    padding: '0 1.5rem',
+    background: '#2a2a2a',
+    borderRadius: '0.5rem',
+    color: '#ffffff',
+    textDecoration: 'none',
+    fontWeight: '500',
+    transition: 'all 0.2s',
+    border: '1px solid #333',
+    margin: '0 2rem'
+  }}
+>
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+      <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+    </svg>
+    Autopotter Github Repository
+</a>
+
+<br/>
+<br/>
+<br/>
+<br/>
