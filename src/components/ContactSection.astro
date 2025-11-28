@@ -44,7 +44,7 @@ const imageSrc = Astro.props.contactImageSrc || defaultImageSrc;
 			/>
 		</a>
 		<div class="contact-text">
-			<h2>Reach Out!</h2>
+			<h2 style="margin-top: 0;">Reach Out!</h2>
 			<p class="contact-description">
 				Interested in collaborating, hiring, or just want to chat about a project? 
 				I'm always excited to connect with fellow makers and creators. Learn more about me
@@ -200,6 +200,7 @@ const imageSrc = Astro.props.contactImageSrc || defaultImageSrc;
 			width: 100%;
 			max-width: 300px;
 			justify-content: center;
+			box-sizing: border-box;
 		}
 	}
 </style>
