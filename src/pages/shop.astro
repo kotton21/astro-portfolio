@@ -2,6 +2,9 @@
 import Header from '../components/Header.astro';
 import ShopItemTile from '../components/ShopItemTile2.astro';
 
+// Feature flag: Set to false to hide all prices on the shop page
+const SHOW_PRICES = false;
+
 // Fetch shop items from API
 let shopItems: Array<{
   id: string;
@@ -50,7 +53,7 @@ try {
         {shopItems.length > 0 ? (
           <div class="shop-grid" id="shop-grid">
             {shopItems.map((item) => (
-              <ShopItemTile item={item} />
+              <ShopItemTile item={item} showPrices={SHOW_PRICES} />
             ))}
           </div>
         ) : (

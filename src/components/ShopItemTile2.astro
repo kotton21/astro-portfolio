@@ -9,9 +9,10 @@ export interface Props {
     status?: 'sold' | 'inquire' | 'not-priced';
     pairPrice?: string;
   };
+  showPrices?: boolean;
 }
 
-const { item } = Astro.props;
+const { item, showPrices = true } = Astro.props;
 const isSold = item.status === 'sold';
 const isInquire = item.status === 'inquire';
 const isNotPriced = item.status === 'not-priced';
@@ -25,16 +26,18 @@ const isNotPriced = item.status === 'not-priced';
     <div class="shop-item-title-container">
       <h3 class="shop-item-title">{item.title}</h3>
     </div>
-    <div class="shop-item-pricing-container">
-      <div class="shop-item-pricing">
-        <p class={`shop-item-price ${isSold ? 'sold' : ''} ${isInquire ? 'inquire' : ''} ${isNotPriced ? 'not-priced' : ''}`}>
-          {item.price}
-        </p>
-        {item.pairPrice && !isSold && (
-          <p class="shop-item-pair-price">Pair: {item.pairPrice}</p>
-        )}
+    {(showPrices || isSold) && (
+      <div class="shop-item-pricing-container">
+        <div class="shop-item-pricing">
+          <p class={`shop-item-price ${isSold ? 'sold' : ''} ${isInquire ? 'inquire' : ''} ${isNotPriced ? 'not-priced' : ''}`}>
+            {item.price}
+          </p>
+          {showPrices && item.pairPrice && !isSold && (
+            <p class="shop-item-pair-price">Pair: {item.pairPrice}</p>
+          )}
+        </div>
       </div>
-    </div>
+    )}
   </div>
 </div>
 
@@ -141,7 +144,6 @@ const isNotPriced = item.status === 'not-priced';
   
   .shop-item-price.sold {
     color: #000;
-    text-decoration: line-through;
     font-size: 1.3rem;
   }
   
