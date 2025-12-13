@@ -33,12 +33,12 @@ const PRODUCTS: Array<{
   },
   {
     friendlyName: 'Martini Tumbler',
-    regex: /\bTM(15|01|02)\b/i,
+    regex: /\bTM(11|12|15|01|02)\b/i,
     getPrice: () => ({ price: 'Sold', status: 'sold' }),
   },
   {
     friendlyName: 'Random Vase',
-    regex: /\bRV(0?4)\b/i,
+    regex: /\bRV(0?4|07)\b/i,
     getPrice: () => ({ price: 'Sold', status: 'sold' }),
   },
   {
