@@ -20,7 +20,6 @@ const isNotPriced = item.status === 'not-priced';
 <div class={`shop-item-tile ${isSold ? 'sold' : ''} ${isInquire ? 'inquire' : ''} ${isNotPriced ? 'not-priced' : ''}`}>
   <div class="shop-item-image">
     <img src={item.imageUrl} alt={item.title} loading="lazy" />
-    {isSold && <div class="sold-overlay">Sold</div>}
     <div class="charcoal-overlay-top"></div>
     <div class="charcoal-overlay-bottom"></div>
     <div class="shop-item-title-container">
@@ -69,17 +68,8 @@ const isNotPriced = item.status === 'not-priced';
     transition: transform 0.3s;
   }
   
-  .shop-item-tile.sold .shop-item-image img {
-    opacity: 0.5;
-    filter: grayscale(100%);
-  }
-  
   .shop-item-tile:hover .shop-item-image img {
     transform: scale(1.25);
-  }
-  
-  .shop-item-tile.sold:hover .shop-item-image img {
-    transform: none;
   }
   
   .charcoal-overlay-top {
@@ -102,21 +92,6 @@ const isNotPriced = item.status === 'not-priced';
     background: linear-gradient(to top, rgba(60, 60, 60, 0.7) 0%, rgba(60, 60, 60, 0.3) 20%, transparent 30%, transparent 100%);
     pointer-events: none;
     z-index: 1;
-  }
-  
-  .sold-overlay {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background: rgba(0, 0, 0, 0.8);
-    color: #ffffff;
-    padding: 0.5rem 1.5rem;
-    border-radius: 0.5rem;
-    font-weight: 700;
-    font-size: 1.2rem;
-    z-index: 10;
-    border: 2px solid #ffffff;
   }
   
   .shop-item-title-container {
@@ -165,8 +140,9 @@ const isNotPriced = item.status === 'not-priced';
   }
   
   .shop-item-price.sold {
-    color: #888;
+    color: #000;
     text-decoration: line-through;
+    font-size: 1.3rem;
   }
   
   .shop-item-price.inquire {
@@ -202,6 +178,10 @@ const isNotPriced = item.status === 'not-priced';
     
     .shop-item-price {
       font-size: 0.95rem;
+    }
+    
+    .shop-item-price.sold {
+      font-size: 1.15rem;
     }
     
     .shop-item-pair-price {

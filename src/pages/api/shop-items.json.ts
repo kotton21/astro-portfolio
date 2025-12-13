@@ -41,6 +41,11 @@ const PRODUCTS: Array<{
     regex: /\bRV(0?4)\b/i,
     getPrice: () => ({ price: 'Sold', status: 'sold' }),
   },
+  {
+    friendlyName: 'Summer Vase',
+    regex: /\bSV(05|14|23)\b/i,
+    getPrice: () => ({ price: 'Sold', status: 'sold' }),
+  },
 
   // Inquire items
   {
